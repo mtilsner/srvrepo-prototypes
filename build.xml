@@ -3,9 +3,9 @@
   <property name="build.dir" value="bin/classes" />
   <property name="dist.dir" value="bin/lib" />
 
-  <property name="scala.home" value="/opt/local/share/scala-2.8" />
-  <property name="scala-library.jar" value="${scala.home}/lib/scala-library.jar" />
-  <property name="scala-compiler.jar" value="${scala.home}/lib/scala-compiler.jar" />
+  <property name="scala.home" value="lib" />
+  <property name="scala-library.jar" value="${scala.home}/scala-library.jar" />
+  <property name="scala-compiler.jar" value="${scala.home}/scala-compiler.jar" />
 
   <target name="init">
 	<path id="build.classpath">
