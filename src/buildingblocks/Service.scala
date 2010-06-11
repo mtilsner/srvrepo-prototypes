@@ -1,11 +1,8 @@
 package buildingblocks
 
-trait Service {
-	type Input
-	type Output
-
-	def inputReference: Input
-	def outputReference: Output
+trait Service[Input,Output] {
+	val input = new Symbol
+	val output = new Symbol
 
 	def pre: Predicate
 	def post: Predicate
