@@ -1,6 +1,6 @@
 package buildingblocks
 
-trait Predicate extends Service {
+trait Predicate {
 	type Output = Boolean
 }
 trait Predicate1[T] extends Predicate {

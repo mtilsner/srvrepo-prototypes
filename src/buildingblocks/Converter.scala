@@ -1,5 +1,5 @@
 package buildingblocks
 
-trait Converter[From,To] extends Service {
+trait Converter[From,To] {
 	def apply(i: From): To
 }
