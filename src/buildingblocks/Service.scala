@@ -10,5 +10,5 @@ trait Service {
 	def pre: Predicate
 	def post: Predicate
 
-	def apply(input: Input): Output
+	def call(input: Input): Output
 }
