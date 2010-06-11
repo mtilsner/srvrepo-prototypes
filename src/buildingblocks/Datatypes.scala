@@ -1,20 +1,7 @@
 package buildingblocks
 
-class Airport extends BasicDatatype {
-	var name: String
-	var city: City
-}
+class Airport(name: String, city: City) extends BasicDatatype
 
-class City extends BasicDatatype {
-	var name: String
-	var location: String
-	var airports: List[Airport]
-}
+class City(name: String, location: String, airports: List[Airport]) extends BasicDatatype
 
-class Flight extends BasicDatatype {
-	var origin: Airport
-	var destination: Airport
-	var airline: String
-	var takeoff: Date
-	var landing: Date
-}
+class Flight(origin: Airport, destination: Airport, airline: String) extends BasicDatatype
