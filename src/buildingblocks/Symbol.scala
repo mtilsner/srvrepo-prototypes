@@ -1,3 +1,3 @@
 package buildingblocks
 
-class Symbol
+class Symbol[+T]
