@@ -4,8 +4,8 @@
   <property name="dist.dir" value="bin/lib" />
 
   <property name="scala.home" value="lib" />
-  <property name="scala-library.jar" value="${scala.home}/scala-library.jar" />
-  <property name="scala-compiler.jar" value="${scala.home}/scala-compiler.jar" />
+  <property name="scala-library.jar" value="${scala.home}/scala-library-2.8.jar" />
+  <property name="scala-compiler.jar" value="${scala.home}/scala-compiler-2.8.jar" />
 
   <target name="init">
 	<path id="build.classpath">
@@ -27,7 +27,8 @@
             destdir="${build.dir}"
             classpathref="build.classpath"
 			encoding="UTF-8"
-			force="changed">
+			force="changed"
+			deprecation="yes">
     </scalac>
   </target>
 
@@ -37,7 +38,7 @@
   </target>
 
   <target name="run" depends="compile">
-    <java classname="sr.Run" fork="true">
+    <java classname="Run" fork="true">
       <classpath>
         <path refid="build.classpath"/>
       </classpath>
