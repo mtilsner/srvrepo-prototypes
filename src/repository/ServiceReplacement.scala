@@ -26,7 +26,7 @@ object FindConverters {
 		val (g_in,g_out) = GetServiceTypes(g)
 		(
 			Repository.converters((f_in, g_in)),
-			Repository.converters((f_in, g_in))
+			Repository.converters((g_out, f_out))
 		)
 	}
 }
