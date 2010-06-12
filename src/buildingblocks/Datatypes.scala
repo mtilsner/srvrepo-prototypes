@@ -1,7 +1,18 @@
 package buildingblocks
 
-class Airport(name: String, city: City) extends BasicDatatype
+class Airport(_name: String, _city: City) {
+	val name: String = _name
+	val city: City = _city
+}
 
-class City(name: String, location: String, airports: List[Airport]) extends BasicDatatype
+class City(_name: String, _location: String, _airports: List[Airport]) {
+	val name: String = _name
+	val location: String = _location
+	val airports: List[Airport] = _airports
+}
 
-class Flight(origin: Airport, destination: Airport, airline: String) extends BasicDatatype
+class Flight(_origin: Airport, _destination: Airport, _airline: String) {
+	val origin: Airport = _origin
+	val destination: Airport = _destination
+	val airline: String = _airline
+}
