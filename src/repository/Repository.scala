@@ -39,8 +39,8 @@ object Repository {
 	)
 	
 	// Converters
-	val converters = Map[Tuple2[Class[_],Class[_]],List[ServiceEntry[_,_]]](
-		(classOf[City],classOf[Airport])	->	List(services("ConvertCityToAirport")),
-		(classOf[Flight],classOf[Flight])	->	List(services("ConvertFlightToFlight"))
+	val converters = Map[Tuple2[Class[_],Class[_]],ServiceEntry[_,_]](
+		(classOf[City],classOf[Airport])	->	services("ConvertCityToAirport"),
+		(classOf[Flight],classOf[Flight])	->	services("ConvertFlightToFlight")
 	)
 }
