@@ -1,4 +1,4 @@
-package buildingblocks
+package domain
 
 class Airport(_name: String, _city: City) {
 	val name: String = _name
