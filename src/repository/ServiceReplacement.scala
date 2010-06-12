@@ -1,4 +1,4 @@
-package matcher
+package repository
 
 import buildingblocks._
 
@@ -14,8 +14,8 @@ object FindConverters {
 
 object ReplacementCheck {
 	def apply(g: ServiceEntry[_,_], f: ServiceEntry[_,_]): Boolean = {
-		val c1,c2 = FindConverters(g,f)
-		if(!(c1 && c2)) return false 
+		val (c1,c2) = FindConverters(g,f)
+		if(!(c1!=null && c2!=null)) return false 
 		
 		val psgen = new PredicatesymbolGenerator(f,g,c1,c2)
 		
@@ -57,8 +57,8 @@ object ReplacementCheck {
 }
 
 object ServiceReplacement {
-	def apply(f: ServiceEntry[_,_]): ServiceEntry[_,_] {
-		for(g <- Repository.services if f != g) {
+	def apply(f: ServiceEntry[_,_]): ServiceEntry[_,_] = {
+		for(g <- Repository.services.values if f != g) {
 			if(ReplacementCheck(g,f)) return g
 		}
 		return null
