@@ -2,12 +2,31 @@ package repository
 
 import buildingblocks._
 
-// so far, this is done hardcoded. In future, the classes of the input and output parameter should be identified dynamically
+object GetServiceTypes {
+	def method(s: ServiceEntry[_,_]): java.lang.reflect.Method = {
+		s.implementation.getClass.getMethods.filter(
+			(m: java.lang.reflect.Method) => m.getName == "call" && m.getParameterTypes()(0) != classOf[Object]
+		)(0)
+	}
+	def apply(s: ServiceEntry[_,_]): Tuple2[Class[_],Class[_]] = {
+		val m = method(s)
+		(m.getParameterTypes()(0), m.getReturnType) 
+	}
+}
+
 object FindConverters {
+	def converter(from: Class[_], to: Class[_]): ServiceEntry[_,_] = 
+		if(Repository.converters.contains((from,to)))
+			Repository.converters((from,to))
+		else
+			null
+
 	def apply(g: ServiceEntry[_,_], f: ServiceEntry[_,_]): Tuple2[ServiceEntry[_,_],ServiceEntry[_,_]] = {
+		val (f_in,f_out) = GetServiceTypes(f)
+		val (g_in,g_out) = GetServiceTypes(g)
 		(
-			Repository.converters((classOf[domain.City], classOf[domain.Airport]))(0),
-			Repository.converters((classOf[domain.Flight], classOf[domain.Flight]))(0)
+			Repository.converters((f_in, g_in)),
+			Repository.converters((f_in, g_in))
 		)
 	}
 }
