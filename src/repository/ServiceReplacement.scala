@@ -25,8 +25,8 @@ object FindConverters {
 		val (f_in,f_out) = GetServiceTypes(f)
 		val (g_in,g_out) = GetServiceTypes(g)
 		(
-			Repository.converters((f_in, g_in)),
-			Repository.converters((g_out, f_out))
+			converter(f_in, g_in),
+			converter(g_out, f_out)
 		)
 	}
 }
@@ -57,21 +57,20 @@ object ReplacementCheck {
 		Console.println("c2.pre  = " + c2_pre)
 		Console.println("c2.post = " + c2_post)
 /*
- *		// check tautologies
- *		// - prove that f.pre => c1.pre
- *		if(!TautologyChecker(¬(^(¬(f_pre),c1_post)))) return false
- * 
- *		// - prove that f.pre ^ c1.post => g.pre
- *		if(!TautologyChecker(¬(^(¬(^(f_pre,c1_post)),g_pre)))) return false
- * 
- *		// - prove that f.pre ^ c1.post ^ g.post => c2.pre
- *		if(!TautologyChecker(¬(^(¬(^(^(f_pre,c1_post),g_post)),c2_pre)))) return false
- *
- *		// - prove that f.pre ^ c1.post ^ g.post ^ c2.post => f.post
- *		if(!TautologyChecker(¬(^(¬(^(^(^(f_pre,c1_post),g_post),c2_post)),f_post)))) return false
- */
- 		return true
+		// check tautologies
+		// - prove that f.pre => c1.pre
+		if(!TautologyChecker(¬(^(¬(f_pre),c1_pre)))) return false
  
+		// - prove that f.pre ^ c1.post => g.pre
+		if(!TautologyChecker(¬(^(¬(^(f_pre,c1_post)),g_pre)))) return false
+ 
+		// - prove that f.pre ^ c1.post ^ g.post => c2.pre
+		if(!TautologyChecker(¬(^(¬(^(^(f_pre,c1_post),g_post)),c2_pre)))) return false
+
+		// - prove that f.pre ^ c1.post ^ g.post ^ c2.post => f.post
+		if(!TautologyChecker(¬(^(¬(^(^(^(f_pre,c1_post),g_post),c2_post)),f_post)))) return false
+*/
+ 		return true 
 	}
 }
 
