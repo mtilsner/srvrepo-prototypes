@@ -47,31 +47,17 @@ object ReplacementCheck {
 		val c2_pre = psgen(c2.pre)
 		val c2_post = psgen(c2.post)
 
-		// current debug
-		Console.println("f.pre   = " + f_pre)
-		Console.println("f.post  = " + f_post)
-		Console.println("g.pre   = " + g_pre)
-		Console.println("g.post  = " + g_post)
-		Console.println("c1.pre  = " + c1_pre)
-		Console.println("c1.post = " + c1_post)
-		Console.println("c2.pre  = " + c2_pre)
-		Console.println("c2.post = " + c2_post)
-
 		// check tautologies
 		// - prove that f.pre => c1.pre
-		Console.println("checking f.pre => c1.pre:")
 		if(!TautologyChecker(¬(^(¬(f_pre),c1_pre)))) return false
  
 		// - prove that f.pre ^ c1.post => g.pre
-		Console.println("checking f.pre ^ c1.post => g.pre:")
 		if(!TautologyChecker(¬(^(¬(^(f_pre,c1_post)),g_pre)))) return false
  
 		// - prove that f.pre ^ c1.post ^ g.post => c2.pre
-		Console.println("checking f.pre ^ c1.post ^ g.post => c2.pre:")
 		if(!TautologyChecker(¬(^(¬(^(^(f_pre,c1_post),g_post)),c2_pre)))) return false
 
 		// - prove that f.pre ^ c1.post ^ g.post ^ c2.post => f.post
-		Console.println("checking f.pre ^ g.post ^ c1.post ^ c2.post  => f.post:")
 		if(!TautologyChecker(¬(^(¬(^(^(^(f_pre,c1_post),g_post),c2_post)),f_post)))) return false
 
  		return true 
