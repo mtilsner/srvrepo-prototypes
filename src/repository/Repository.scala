@@ -43,4 +43,9 @@ object Repository {
 		(classOf[City],classOf[Airport])	->	services("ConvertCityToAirport"),
 		(classOf[Flight],classOf[Flight])	->	services("ConvertFlightToFlight")
 	)
+	
+	val interferenceRules = Map[AbstractPredicatesymbol,AbstractPredicatesymbol](
+		^(Predicatesymbol("IsAirportInCity13"),Predicatesymbol("IsFlightFromAirport34"))	-> Predicatesymbol("IsFlightFromCity14"),
+		^(Predicatesymbol("IsFlightFromCity14"),Predicatesymbol("IsEquals42"))				-> Predicatesymbol("IsFlightFromCity12")
+	)
 }
