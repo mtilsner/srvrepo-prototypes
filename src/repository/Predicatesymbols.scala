@@ -2,30 +2,21 @@ package repository
 
 import buildingblocks._
 
-trait Predicatesymbol
+abstract class AbstractPredicatesymbol
 
-class Predicatesymbol1(_predicate: Predicate, _pos: Int) extends Predicatesymbol {
-	val predicate: Predicate = _predicate
- 	override def toString: String = predicate.asInstanceOf[PredicateServiceEntry1[_]].implementation.getClass.getName + _pos
-}
-
-class Predicatesymbol2(_predicate: Predicate, _pos1: Int, _pos2: Int) extends Predicatesymbol {
-	val predicate: Predicate = _predicate
-	override def toString: String = predicate.asInstanceOf[PredicateServiceEntry2[_,_]].implementation.getClass.getName + _pos1 + _pos2
+case class Predicatesymbol(_value: String) extends AbstractPredicatesymbol {
+	val value: String = _value
+	def ==(other: Predicatesymbol): Boolean = this.value.equals(other.value)
+	def equals(other: Predicatesymbol): Boolean = (this == other)
+	override def toString(): String = value
 }
 
-class ^(p1: Predicatesymbol, p2: Predicatesymbol) extends Predicatesymbol {
-  override def toString(): String = "(" + p1 + ") ^ (" + p2 + ")"
-}
-object ^ {
-  def apply(p1: Predicatesymbol, p2: Predicatesymbol): Predicatesymbol = { new ^(p1, p2) }
+case class ^(p1: AbstractPredicatesymbol, p2: AbstractPredicatesymbol) extends AbstractPredicatesymbol {
+ 	override def toString(): String = "(" + p1 + ") ^ (" + p2 + ")"
 }
 
-class ¬(p: Predicatesymbol) extends Predicatesymbol{
-  override def toString(): String = "¬ (" + p + ")"
-}
-object ¬ {
-  def apply(p: Predicatesymbol): Predicatesymbol = { new ¬(p) }
+case class ¬(p: AbstractPredicatesymbol) extends AbstractPredicatesymbol {
+	override def toString(): String = "¬ (" + p + ")"
 }
 
 class PredicatesymbolGenerator(f: ServiceEntry[_,_], g: ServiceEntry[_,_], c1: ServiceEntry[_,_], c2: ServiceEntry[_,_]) {
@@ -36,11 +27,15 @@ class PredicatesymbolGenerator(f: ServiceEntry[_,_], g: ServiceEntry[_,_], c1: S
  		case _ => 4
 	}
 	
-	def apply(p: Predicate): Predicatesymbol = p match {
+	def name(p: Predicate): String = {
+		p.asInstanceOf[ExternalServiceReference[_,_]].implementation.getClass.getName.split("\\.").last
+	}
+	
+	def apply(p: Predicate): AbstractPredicatesymbol = p match {
 		case Not(p1)							=> ¬(this(p))
 		case And(p1, p2)						=> ^(this(p1), this(p2))
 		case Or(p1, p2)							=> ¬(^(¬(this(p1)), ¬(this(p2))))
-		case PredicateService1(item)			=> new Predicatesymbol1(p, position(item))
-		case PredicateService2(item1, item2)	=> new Predicatesymbol2(p, position(item1), position(item2))
+		case PredicateService1(item)			=> Predicatesymbol(name(p) + position(item))
+		case PredicateService2(item1, item2)	=> Predicatesymbol(name(p) + position(item1) + position(item2))
 	}
 }
