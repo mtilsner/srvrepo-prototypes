@@ -49,16 +49,16 @@ object ReplacementCheck {
 
 		// check tautologies
 		// - prove that f.pre => c1.pre
-		if(!TautologyChecker(¬(^(¬(f_pre),c1_pre)))) return false
+		if(!TautologyChecker( ¬(^( f_pre, ¬(c1_pre) )) )) return false
  
 		// - prove that f.pre ^ c1.post => g.pre
-		if(!TautologyChecker(¬(^(¬(^(f_pre,c1_post)),g_pre)))) return false
+		if(!TautologyChecker( ¬(^( ^(f_pre,c1_post), ¬(g_pre) )) )) return false
  
 		// - prove that f.pre ^ c1.post ^ g.post => c2.pre
-		if(!TautologyChecker(¬(^(¬(^(^(f_pre,c1_post),g_post)),c2_pre)))) return false
+		if(!TautologyChecker( ¬(^( ^(^(f_pre,c1_post),g_post), ¬(c2_pre) )) )) return false
 
 		// - prove that f.pre ^ c1.post ^ g.post ^ c2.post => f.post
-		if(!TautologyChecker(¬(^(¬(^(^(^(f_pre,c1_post),g_post),c2_post)),f_post)))) return false
+		if(!TautologyChecker( ¬(^( ^(^(^(f_pre,c1_post),g_post),c2_post), ¬(f_post) )) )) return false
 
  		return true 
 	}
