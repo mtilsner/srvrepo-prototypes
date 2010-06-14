@@ -7,16 +7,15 @@ abstract class AbstractPredicatesymbol
 case class Predicatesymbol(_value: String) extends AbstractPredicatesymbol {
 	val value: String = _value
 	def ==(other: Predicatesymbol): Boolean = this.value.equals(other.value)
-	def equals(other: Predicatesymbol): Boolean = (this == other)
 	override def toString(): String = value
 }
 
 case class ^(p1: AbstractPredicatesymbol, p2: AbstractPredicatesymbol) extends AbstractPredicatesymbol {
- 	override def toString(): String = "(" + p1 + ") ^ (" + p2 + ")"
+ 	override def toString(): String = "^(" + p1 + "," + p2 + ")"
 }
 
 case class ¬(p: AbstractPredicatesymbol) extends AbstractPredicatesymbol {
-	override def toString(): String = "¬ (" + p + ")"
+	override def toString(): String = "¬(" + p + ")"
 }
 
 class PredicatesymbolGenerator(f: ServiceEntry[_,_], g: ServiceEntry[_,_], c1: ServiceEntry[_,_], c2: ServiceEntry[_,_]) {
